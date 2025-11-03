@@ -1,0 +1,117 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:l="sap.ui.layout" xmlns:vbm="sap.ui.vbm">
+	<l:VerticalLayout width="100%">
+		<!-- Flight Information Header -->
+		<Panel headerText="Flight Information: Delhi (DEL) → Dubai (DXB)" class="sapUiResponsiveMargin">
+			<l:HorizontalLayout class="sapUiSmallMargin">
+				<l:VerticalLayout class="sapUiSmallMarginEnd">
+					<Label text="Departure" design="Bold"/>
+					<Text text="Indira Gandhi International Airport (DEL)"/>
+					<Text text="New Delhi, India"/>
+					<Label text="Coordinates" class="sapUiTinyMarginTop"/>
+					<Text text="28.5665° N, 77.1031° E"/>
+				</l:VerticalLayout>
+				
+				<core:Icon src="sap-icon://flight" size="2rem" class="sapUiLargeMarginBegin sapUiLargeMarginEnd" color="#0854A0"/>
+				
+				<l:VerticalLayout class="sapUiSmallMarginBegin">
+					<Label text="Arrival" design="Bold"/>
+					<Text text="Dubai International Airport (DXB)"/>
+					<Text text="Dubai, United Arab Emirates"/>
+					<Label text="Coordinates" class="sapUiTinyMarginTop"/>
+					<Text text="25.2532° N, 55.3657° E"/>
+				</l:VerticalLayout>
+			</l:HorizontalLayout>
+			
+			<l:HorizontalLayout class="sapUiSmallMargin">
+				<VBox class="sapUiSmallMarginEnd">
+					<Label text="Distance"/>
+					<Text text="~2,200 km"/>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin">
+					<Label text="Flight Duration"/>
+					<Text text="~3.5 hours"/>
+				</VBox>
+			</l:HorizontalLayout>
+		</Panel>
+		
+		<!-- Map Container with VBI (Visual Business) Map Control -->
+		<Panel headerText="Flight Route Map" class="sapUiResponsiveMargin">
+			<vbm:AnalyticMap 
+				id="flightRouteMap"
+				width="100%" 
+				height="500px"
+				initialPosition="28.5665;77.1031;0"
+				initialZoom="5"
+				legendVisible="false"
+				scaleVisible="true"
+				navcontrolVisible="true">
+				
+				<!-- Spots for Airports -->
+				<vbm:vos>
+					<vbm:Spots id="airportSpots">
+						<vbm:items>
+							<!-- Delhi Airport -->
+							<vbm:Spot 
+								position="28.5665;77.1031;0" 
+								text="DEL" 
+								type="Success"
+								icon="sap-icon://flight"
+								tooltip="Indira Gandhi International Airport, Delhi"/>
+							
+							<!-- Dubai Airport -->
+							<vbm:Spot 
+								position="25.2532;55.3657;0" 
+								text="DXB" 
+								type="Error"
+								icon="sap-icon://flight"
+								tooltip="Dubai International Airport"/>
+						</vbm:items>
+					</vbm:Spots>
+					
+					<!-- Route line between airports -->
+					<vbm:Routes id="flightRoute">
+						<vbm:items>
+							<vbm:Route 
+								position="28.5665;77.1031;0;25.2532;55.3657;0" 
+								color="rgb(8,84,160)"
+								colorBorder="rgb(8,84,160)"
+								linewidth="3"
+								routetype="Geodesic"
+								tooltip="Flight Route: Delhi to Dubai"/>
+						</vbm:items>
+					</vbm:Routes>
+				</vbm:vos>
+				
+				<!-- Legend -->
+				<vbm:legend>
+					<vbm:Legend>
+						<vbm:items>
+							<vbm:LegendItem text="Departure - Delhi (DEL)" color="rgb(92,186,71)"/>
+							<vbm:LegendItem text="Arrival - Dubai (DXB)" color="rgb(187,0,0)"/>
+							<vbm:LegendItem text="Flight Route" color="rgb(8,84,160)"/>
+						</vbm:items>
+					</vbm:Legend>
+				</vbm:legend>
+			</vbm:AnalyticMap>
+		</Panel>
+		
+		<!-- Map Controls Info -->
+		<Panel headerText="Map Controls" class="sapUiResponsiveMargin">
+			<VBox class="sapUiSmallMargin">
+				<HBox alignItems="Center" class="sapUiTinyMarginBottom">
+					<core:Icon src="sap-icon://zoom-in" class="sapUiTinyMarginEnd"/>
+					<Text text="Use mouse wheel or +/- buttons to zoom in/out"/>
+				</HBox>
+				<HBox alignItems="Center" class="sapUiTinyMarginBottom">
+					<core:Icon src="sap-icon://cursor" class="sapUiTinyMarginEnd"/>
+					<Text text="Click and drag to pan the map"/>
+				</HBox>
+				<HBox alignItems="Center">
+					<core:Icon src="sap-icon://map-2" class="sapUiTinyMarginEnd"/>
+					<Text text="Click on airport markers for details"/>
+				</HBox>
+			</VBox>
+		</Panel>
+	</l:VerticalLayout>
+</core:FragmentDefinition>
